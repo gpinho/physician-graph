@@ -30,5 +30,8 @@ if __name__ == '__main__':
     # mongo_import('data/NPI/npidata_pfile_20050523-20180408.csv', 'healthcare', 'npi', header_npi)
 
     # referral dataset
-    header_referral = ['Initial Physician NPI', 'Secondary Physician NPI', 'Shared Count', 'Number Unique Beneficiaries', 'Number Same Day Visits']
-    mongo_import('data/referral/physician-shared-patient-patterns-2014-days180.txt', 'healthcare', 'referral-2014-180', header_referral)
+    # header_referral = ['Initial Physician NPI', 'Secondary Physician NPI', 'Shared Count', 'Number Unique Beneficiaries', 'Number Same Day Visits']
+    # mongo_import('data/referral/physician-shared-patient-patterns-2014-days180.txt', 'healthcare', 'referral-2014-180', header_referral)
+
+    # provider taxonomy dataset
+    # mongo_import('data/provider taxonomy/nucc_taxonomy_180.csv', 'healthcare', 'provider-taxonomy', None)

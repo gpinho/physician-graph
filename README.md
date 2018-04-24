@@ -1,4 +1,19 @@
-# Data
+# Description
+
+### Predicting Physician Relationships Based on Shared Patients
+* **Predict Physician Current Relationships**: by modeling the Physician Shared Patient Patterns dataset into a directed graph, in which physicians are nodes and shared patients are edges, and combining it with the National Plan and Provider Enumeration System and Health Care Provider Taxonomy Code datasets we expect to be able to predict edges (shared patients) to every node (physician). Most likely we will classify if a relationship between physician A and B exists according to a probability threshold, if we have enough signal we might also be able to determine how strong is the relationship by estimating the number of shared patients. By splitting the dataset into a training and test set we can evaluate how well the model performs.
+* **Recommend Physician New Relationships**: by Predicting Physician Current Relationships we can use the same model to recommend new relationships, but in this case we don't have any labels.
+
+# Presentation
+
+### Web App
+
+### Google Slides
+
+### Jupyter Notebook
+
+
+# Datasets
 
 ### Physician Shared Patient Patterns
 * **Readme**: https://downloads.cms.gov/foia/physician_shared_patient_patterns_technical_requirements.pdf
@@ -54,21 +69,19 @@
         * Provider Credential
         * Provider Location
         * Provider Gender
-        * Provider Taxonomy Code (1-15) (Primary Taxonomy?) (http://www.wpc-edi.com/reference/codelists/healthcare/health-care-provider-taxonomy-code-set/) (Health Care Provider Taxonomy Codes Codes define a health care service provider type, classification, and area of specialization.) (with description)
+        * Provider Taxonomy Code (1-15)
         * Provider License Number (1-15)
         * Provider License Number State Code (1-15)
         * Provider Taxonomy Code Switch (1-15)                        
         * Other Provider (?)
         * ...
-        * Other Provider Identifier (4x50) (Insurance Provider? Only Medicare?)
+        * Other Provider Identifier (4x50) (?)
         * Is Sole Proprietor
         * Is Organization Subpart
         * Parent Organization
         * Healthcare Provide Taxonomy Group (?) (1-15) (Multi or Single Specialty Group)
 
-NPI records in the downloadable file will also include deactivated health care provider
-data. But for these deactivated providers, only the NPI and its deactivation date will be visible in the
-downloadable file
+NPI records in the downloadable file will also include deactivated health care provider data. But for these deactivated providers, only the NPI and its deactivation date will be visible in the downloadable file
 
 ### Health Care Provider Taxonomy Code
 * **National Uniform Claim Committee**:
