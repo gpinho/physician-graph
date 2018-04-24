@@ -9,7 +9,7 @@
     * **Treatment Association**: "A "treatment association" is any field in the claims database,-other- than referring NPI, or the NPI for suppliers of durable medical equipment. Essentially, those NPI records that could have participated in the delivery of healthcare services associated with a given claim."
     * **Privacy Measures**: "In order to protect the identity of patients, this report excludes any sharing that happened with less than 11 different patients over the course of the year."
     * **Data Source**: "produced from the Integrated Data Repository (IDR) database, which houses claims from the National Claims History (NCH) database." (Medicare)
-    
+
 * **Files**
     * **Number of Files**: 28
     * **Years**: 2009, 2010, 2011, 2012, 2013, 2014, 2015 (until 10/01/2015)
@@ -27,15 +27,15 @@
         * **Number Unique Beneficiaries**: "number of unique beneficiary referrals"
         * **Number Same Day Visits**: "number of beneficiary referrals on the same day"
             * "Presumed shared relationships based on same-day events will be assigned to the lesser of the two NPIs"
-        
-### NPI | National Plan and Provider Enumeration System (NPPES) 
+
+### NPI | National Plan and Provider Enumeration System (NPPES)
 * **Readme**: https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand/Downloads/Data_Dissemination_File-Readme.pdf
 * **Code Values**: https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand/Downloads/Data_Dissemination_File-Code_Values.pdf
 * **Download**: http://download.cms.gov/nppes/NPI_Files.html
 * **API**: https://npiregistry.cms.hhs.gov/registry/help-api
 * **Overview**
-    * **xxx**: 
-    
+    * **xxx**:
+
 * **Files**
     * **Number of Files**: 1
     * **Years**: 2005-2018 YTD
@@ -65,25 +65,31 @@
         * Is Organization Subpart
         * Parent Organization
         * Healthcare Provide Taxonomy Group (?) (1-15) (Multi or Single Specialty Group)
-        
+
 NPI records in the downloadable file will also include deactivated health care provider
 data. But for these deactivated providers, only the NPI and its deactivation date will be visible in the
 downloadable file
+
+### Health Care Provider Taxonomy Code
+* **National Uniform Claim Committee**:
+http://www.nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40/csv-mainmenu-57
+* **Washington Publishing Company**: http://www.wpc-edi.com/reference/codelists/healthcare/health-care-provider-taxonomy-code-set/
+
 
 # Hypothesis and Questions
 
 ## Features
 * **Relationships Between Physicians**
     * **Physician Specialty**
-        * Can I get relationships between taxonomy codes (specialties)? 
-        * Can I translate the code to specialty name? 
-        * Can I get a description of each specialty? 
+        * Can I get relationships between taxonomy codes (specialties)?
+        * Can I translate the code to specialty name?
+        * Can I get a description of each specialty?
         * Can NLP on that description be used to to create relationships between specialties?
-    * **Physician Location**: 
+    * **Physician Location**:
         * Can I get the location of physicians?
-    * **Insurance Coverage**: 
+    * **Insurance Coverage**:
         * Can I get insurance coverage for physicians? Data based on Medicare only claims?
-    
+
 * **Relationships Between Conditions, Procedures and Specialties**:
     * **Conditions**: XXX
     * **Procedures**: XXX
@@ -109,13 +115,9 @@ downloadable file
 * **Condition Communities Recommendations **
 
 # Week 0
-### Objective
-### Big Data
-### CSV vs API
-### MVP
-### Database
-
-- What I did yesterday
-- What will I do today
-- What are my questions
-- What do I need help with
+### Objective: Predict Current Relationships and Recommend New Relationships
+### Big Data: Start Local
+### CSV vs API: API
+### MVP: Predict Current Relationships
+### Database: MongoDB
+### Training: Potentially Use Different Years to Progressively Train the Model
