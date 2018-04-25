@@ -5,20 +5,17 @@ This project is being developed as a capstone project for Galvanize's Data Scien
 https://www.galvanize.com/san-francisco/data-science
 
 # Background
-XXX
+Patients rely on a network of specialized physicians in order to get healthcare, but it's not transparent how and what makes physicians connected. There are no features that highlight existing relationships and that recommend new relationships between physicians. We expect to build a web app able to predict physician relationships based on shared patients.
 
-### Predicting Physician Relationships Based on Shared Patients
-* **Predict Physician Current Relationships**: by modeling the Physician Shared Patient Patterns dataset into a directed graph, in which physicians are nodes and shared patients are edges, and combining it with the National Plan and Provider Enumeration System and Health Care Provider Taxonomy Code datasets we expect to be able to predict edges (shared patients) to every node (physician). Most likely we will classify if a relationship between physician A and B exists according to a probability threshold, if we have enough signal we might also be able to determine how strong is the relationship by estimating the number of shared patients. By splitting the dataset into a training and test set we can evaluate how well the model performs.
-* **Recommend Physician New Relationships**: by Predicting Physician Current Relationships we can use the same model to recommend new relationships, but in this case we don't have any labels.
-
-# Presentation
-
-### Web App
-
-### Google Slides
-
-### Jupyter Notebook
-
+# Methodology
+1. Download, scrape and store data from sources
+2. Combine different datasets into a graph structure
+3. Feature engineering
+  - Provider Taxonomy Code > Specialty & Description (NLP)
+  - Address > Coordinates
+  - ...
+4. Train and validate different classification models to predict existing relationships
+5. Evaluate model on test data: existing relationships the model has not seen
 
 # Datasets
 
@@ -67,7 +64,7 @@ XXX
     * **Number of Rows**: 5,546,686
     * **Rows**: NPI Record
     * **Number of Columns**: 329
-    * **Selected Columns**: https://npiregistry.cms.hhs.gov/registry/Json-Conversion-Field-Map
+    * **Columns**: https://npiregistry.cms.hhs.gov/registry/Json-Conversion-Field-Map
         * NPI
         * Entity Type Code
         * NPI Deactivation Reason Code
@@ -88,7 +85,7 @@ XXX
         * Parent Organization
         * Healthcare Provide Taxonomy Group (?) (1-15) (Multi or Single Specialty Group)
 
-NPI records in the downloadable file will also include deactivated health care provider data. But for these deactivated providers, only the NPI and its deactivation date will be visible in the downloadable file
+Obs: NPI records in the downloadable file will also include deactivated health care provider data. But for these deactivated providers, only the NPI and its deactivation date will be visible in the downloadable file
 
 ### Health Care Provider Taxonomy Code
 * **National Uniform Claim Committee**:
@@ -96,24 +93,7 @@ http://www.nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-4
 * **Washington Publishing Company**: http://www.wpc-edi.com/reference/codelists/healthcare/health-care-provider-taxonomy-code-set/
 
 
-# Hypothesis and Questions
-
-## Features
-* **Relationships Between Physicians**
-    * **Physician Specialty**
-        * Can I get relationships between taxonomy codes (specialties)?
-        * Can I translate the code to specialty name?
-        * Can I get a description of each specialty?
-        * Can NLP on that description be used to to create relationships between specialties?
-    * **Physician Location**:
-        * Can I get the location of physicians?
-    * **Insurance Coverage**:
-        * Can I get insurance coverage for physicians? Data based on Medicare only claims?
-
-* **Relationships Between Conditions, Procedures and Specialties**:
-    * **Conditions**: XXX
-    * **Procedures**: XXX
-    * **Specialties**: XXX
+# Next Steps
 
 ## Predictions and Recommendations
 * **Given a Physician Predict Current Relationships**
@@ -133,11 +113,3 @@ http://www.nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-4
 * **Condition Profile **
 * **Condition Physician Recommendations **
 * **Condition Communities Recommendations **
-
-# Week 0
-### Objective: Predict Current Relationships and Recommend New Relationships
-### Big Data: Start Local
-### CSV vs API: API
-### MVP: Predict Current Relationships
-### Database: MongoDB
-### Training: Potentially Use Different Years to Progressively Train the Model
