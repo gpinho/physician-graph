@@ -11,9 +11,9 @@ Patients rely on a network of specialized physicians in order to get healthcare,
 1. Download, scrape and store data from sources
 2. Combine different datasets into a graph structure
 3. Feature engineering
-  - Provider Taxonomy Code > Specialty & Description (NLP)
-  - Address > Coordinates
-  - ...
+    - Provider Taxonomy Code > Specialty & Description (NLP)
+    - Address > Coordinates
+    - ...
 4. Train and validate different classification models to predict existing relationships
 5. Evaluate model on test data: existing relationships the model has not seen
 
