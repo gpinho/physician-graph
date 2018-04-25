@@ -1,4 +1,11 @@
-# Description
+![Alt text](/app/static/img/pg-logo.png?raw=true "Optional Title")
+
+# Predicting Physician Relationships Based on Shared Patients
+This project is being developed as a capstone project for Galvanize's Data Science Immersive course.
+https://www.galvanize.com/san-francisco/data-science
+
+# Background
+XXX
 
 ### Predicting Physician Relationships Based on Shared Patients
 * **Predict Physician Current Relationships**: by modeling the Physician Shared Patient Patterns dataset into a directed graph, in which physicians are nodes and shared patients are edges, and combining it with the National Plan and Provider Enumeration System and Health Care Provider Taxonomy Code datasets we expect to be able to predict edges (shared patients) to every node (physician). Most likely we will classify if a relationship between physician A and B exists according to a probability threshold, if we have enough signal we might also be able to determine how strong is the relationship by estimating the number of shared patients. By splitting the dataset into a training and test set we can evaluate how well the model performs.
