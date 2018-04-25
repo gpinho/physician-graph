@@ -102,14 +102,14 @@ http://www.nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-4
 * **Given a Condition Recommend a a Community of Physicians**
 
 ## Web App
-* **Search by Physician, Procedure, Condition **
-* **Physician Profile **
-* **Physician Current Relationships **
-* **Physician New Relationships Recommendations **
-* **Physician Communities **
-* **Procedure Profile **
-* **Procedure Physician Recommendations **
-* **Procedure Communities Recommendations **
-* **Condition Profile **
-* **Condition Physician Recommendations **
-* **Condition Communities Recommendations **
+* **Search by Physician, Procedure, Condition**
+* **Physician Profile**
+* **Physician Current Relationships**
+* **Physician New Relationships Recommendations**
+* **Physician Communities**
+* **Procedure Profile**
+* **Procedure Physician Recommendations**
+* **Procedure Communities Recommendations**
+* **Condition Profile**
+* **Condition Physician Recommendations**
+* **Condition Communities Recommendations**
