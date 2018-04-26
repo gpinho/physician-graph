@@ -98,11 +98,14 @@ https://turi.com/learn/userguide/recommender/choosing-a-model.html
 - Item content data: collection of items with no user interaction data
 - Side data: in many cases, additional information about the users or items can improve the quality of the recommendations. For example, including information about the genre and year of a movie can be useful information in recommending movies. We call this type of information user side data or item side data depending on whether it goes with the user or the item.
 
-# Papers
-- SVM? http://www.leonidzhukov.net/hse/2017/networkscience/papers/hasan06.pdf
-- http://social.cs.uiuc.edu/class/cs591kgk/friendsadamic.pdf
+# Review Repos
+- Recommendation Systems
+- Recommender Case Study
 
-
+# Next Steps
+Node/Vertices DF > Vertices | NPI, Attributes of Node/Vertices
+Edges DF > Edges | SRC, DST, Attributes of Edge
+Seems that Edge DF is the way to go, we would have user side data as columns and item side data as columns as well
 
 
 # Datasets
