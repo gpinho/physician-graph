@@ -10,110 +10,97 @@ Patients rely on a network of specialized physicians in order to get healthcare,
 # Objective
 Predict Edges/Links Using Physician Features (non-relationship) by a Model that was trained using Relationship Features
 
-# Methodology
-1. Download, scrape and store data from sources
-2. Combine different datasets into a graph structure
-3. Feature engineering
-    - Shared Patient Count > Edge Weight
-    - Provider Taxonomy Code > Specialty & Description (NLP)
-    - Address > Coordinates
-    - ...
-4. Graph Matrix Representation
-5. Remove 10% of Data Points for Test Dataset
-6. Run NMF for soft clustering where each physician can have partial relationship in each cluster
-
 # NMF/UVD - Unsupervised Learning - Dimensionality Reduction
 Use Cases:
-1) Soft clustering where each physician can have partial relationship in each cluster
-2) Identify latent features (topics, features that explain the cluster)
+- Soft clustering where each physician can have partial relationship in each cluster
+- Identify latent features (topics, features that explain the cluster)
 
 How it Works:
--W: physician by latent features
--H: latent features by features
--V: physicians by features
+- W: physician by latent features
+- H: latent features by features
+- V: physicians by features
 
--W * H = V'
+- W * H = V'
 
--Given V, NMF will return the best W and H in order to minimize OLS/ALS/SGD for a given k (number of desired latent features)
+- Given V, NMF will return the best W and H in order to minimize OLS/ALS/SGD for a given k (number of desired latent features)
 
 Questions:
--If we only use relationship features why should we use NMF to form soft clusters instead of graph communities?
--If we use all the features and identify the latent ones for each cluster how can we use it to predict edges?
--What's the impact of the number of features for NMF? Do they have different weights?
--How will NMF consider a feature such as Physician Specialty? Physicians are unlikely to refer to the same specialty
--How to represent directions in the matrix? (one column for each direction? or relationship only represented in one node but not the other?)
--What should the matrix representation be? nodes? edges?
+- If we only use relationship features why should we use NMF to form soft clusters instead of graph communities?
+- If we use all the features and identify the latent ones for each cluster how can we use it to predict edges?
+- What's the impact of the number of features for NMF? Do they have different weights?
+- How will NMF consider a feature such as Physician Specialty? Physicians are unlikely to refer to the same specialty
+- How to represent directions in the matrix? (one column for each direction? or relationship only represented in one node but not the other?)
+- What should the matrix representation be? nodes? edges?
 
 Next Steps:
--Model Evaluation
-  -Input combined dataset matrix
-  -Choose k
-  -Check results
-  -Remove 10% of the relationships and save as test set
-  -Input combined dataset matrix
-  -Use same k
-  -Compare results to test set
--Model Prediction
-  -Given a new physician how can I predict clusters?
-  -Given a new physician how can I predict edges?
+- Model Evaluation
+  - Input combined dataset matrix
+  - Choose k
+  - Check results
+  - Remove 10% of the relationships and save as test set
+  - Input combined dataset matrix
+  - Use same k
+  - Compare results to test set
+- Model Prediction
+  - Given a new physician how can I predict clusters?
+  - Given a new physician how can I predict edges?
 
 # PCA/SVD - Unsupervised Learning - Dimensionality Reduction
 Use Cases:
--Reduce dimensionality for (1) Clustering, (2) Visualization, (3) Compress/Storage
+- Reduce dimensionality for (1) Clustering, (2) Visualization, (3) Compress/Storage
 
 How it Works:
--X: physicians by features
--E: eigenvectors of the covariance matrix by features
--X': physicians by eigenvectors (principal components)
+- X: physicians by features
+- E: eigenvectors of the covariance matrix by features
+- X': physicians by eigenvectors (principal components)
 
-X * E(t) = X'
-X(t) * X = Covariance Matrix
+- X * E(t) = X'
+- X(t) * X = Covariance Matrix
 
--Given X, PCA will return the best X' to minimize distance from the original data to the projections while maximizing the variance of the projections, first k principal components will create the best k dimensional reconstruction. SVD will return the same result in a more computationally efficient manner.
+- Given X, PCA will return the best X' to minimize distance from the original data to the projections while maximizing the variance of the projections, first k principal components will create the best k dimensional reconstruction. SVD will return the same result in a more computationally efficient manner.
 
 Questions:
--If the latent features are difficult to interpret why would I want to use PCA instead of NMF?
--Principal Component Regression? NMF Regression?
--Same questions as NMF
+- If the latent features are difficult to interpret why would I want to use PCA instead of NMF?
+- Principal Component Regression? NMF Regression?
+- Same questions as NMF
 
 Next Steps:
--Similar Steps to NMF
+- Similar Steps to NMF
 
 # Recommenders
 Use Cases:
--Popularity
--Content-Based / Content Filtering
--Collaborative Filtering: User-User (Physician-Physician), Item-Item (RelationshipWith-RelationshipWith), Similarity Matrix, RelationshipWith Prediction for Physician (Known RelationshipWith Similarity * Number of Shared Patients)
--Matrix Factorization Methods
+- Popularity
+- Content-Based / Content Filtering
+- Collaborative Filtering: User-User (Physician-Physician), Item-Item (RelationshipWith-RelationshipWith), Similarity Matrix, RelationshipWith Prediction for Physician (Known RelationshipWith Similarity * Number of Shared Patients)
+- Matrix Factorization Methods
 
 Questions:
--Can we add the Physician Features (non-relationship)?
-  -If Item/Column: Similarity between RelationshipWith and Specialty/Location
-  -If User/Row: Similarity between User and GroupByFeatureMean?
--Model evaluation, k-fold cross-validation holdout set?
--Cold start / New Physician (Search), input Physician Features (non-relationship) and Recommend Based on User-User Similarity?
--Problem a good fit with Collaborative Filtering?
--Problem a good fit for UVD/NMF + SGD? k = set of indices of known rating?
--Work towards similar ends by different means (similarity x factorization)?
+- Can we add the Physician Features (non-relationship)?
+  - If Item/Column: Similarity between RelationshipWith and Specialty/Location
+  - If User/Row: Similarity between User and GroupByFeatureMean?
+- Model evaluation, k-fold cross-validation holdout set?
+- Cold start / New Physician (Search), input Physician Features (non-relationship) and Recommend Based on User-User Similarity?
+- Problem a good fit with Collaborative Filtering?
+- Problem a good fit for UVD/NMF + SGD? k = set of indices of known rating?
+- Work towards similar ends by different means (similarity x factorization)?
 
 # Graph Theory
--Communities
--Link Prediction Based on Common Connections
+- Communities
+- Link Prediction Based on Common Connections
 
 
 # Graphlab
 https://turi.com/learn/userguide/recommender/choosing-a-model.html
-Explicit data: observations include an actual rating given by the user
-  -Predict the rating a user would give a particular item > factorization_recommender (can easily incorporate user or item side features.)
-  -Recommend items that it believes the user would rate highly > item_similarity_recommender or ranking_factorization_recommender (later uses side data as well)
-Implicit data: collection of items a user has interacted with.
-Item content data: collection of items with no user interaction data
-Side data: in many cases, additional information about the users or items can improve the quality of the recommendations. For example, including information about the genre and year of a movie can be useful information in recommending movies. We call this type of information user side data or item side data depending on whether it goes with the user or the item.
+- Explicit data: observations include an actual rating given by the user
+  - Predict the rating a user would give a particular item > factorization_recommender (can easily incorporate user or item side features.)
+  - Recommend items that it believes the user would rate highly > item_similarity_recommender or ranking_factorization_recommender (later uses side data as well)
+- Implicit data: collection of items a user has interacted with.
+- Item content data: collection of items with no user interaction data
+- Side data: in many cases, additional information about the users or items can improve the quality of the recommendations. For example, including information about the genre and year of a movie can be useful information in recommending movies. We call this type of information user side data or item side data depending on whether it goes with the user or the item.
 
 # Papers
-SVM?
-http://www.leonidzhukov.net/hse/2017/networkscience/papers/hasan06.pdf
-http://social.cs.uiuc.edu/class/cs591kgk/friendsadamic.pdf
+- SVM? http://www.leonidzhukov.net/hse/2017/networkscience/papers/hasan06.pdf
+- http://social.cs.uiuc.edu/class/cs591kgk/friendsadamic.pdf
 
 
 
