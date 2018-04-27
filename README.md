@@ -103,9 +103,11 @@ https://turi.com/learn/userguide/recommender/choosing-a-model.html
 - Recommender Case Study
 
 # Next Steps
-Node/Vertices DF > Vertices | NPI, Attributes of Node/Vertices
-Edges DF > Edges | SRC, DST, Attributes of Edge
-Seems that Edge DF is the way to go, we would have user side data as columns and item side data as columns as well
+- Get advice on moving data to AWS (CSV, SQL, NOSQL)
+- Move the data and store it according to advice received
+- Run GraphLab on subsample of data
+- Run GraphLab on the 2014 referral data
+- Step by step add side data and engineer additional features
 
 
 # Datasets
