@@ -103,10 +103,13 @@ https://turi.com/learn/userguide/recommender/choosing-a-model.html
 - Recommender Case Study
 
 # Next Steps
-- Get advice on moving data to AWS (CSV, SQL, NOSQL)
-- Move the data and store it according to advice received
-- Run GraphLab on subsample of data
+- (continue graphlab tutorial / test)
+- https://github.com/turi-code/tutorials/blob/master/notebooks/basic_recommender_functionalities.ipynb
+- https://github.com/turi-code/tutorials/blob/master/notebooks/recsys_rank_10K_song.ipynb
+- Get files on S3
+- Run GraphLab on subsample of data (install graphlab on instance, install spark, view bigdata repos, the ones where we actually do stuff on EC2)
 - Run GraphLab on the 2014 referral data
+- Recommender System PDF (Netflix)
 - Step by step add side data and engineer additional features
 
 
