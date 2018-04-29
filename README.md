@@ -103,14 +103,27 @@ https://turi.com/learn/userguide/recommender/choosing-a-model.html
 - Recommender Case Study
 
 # Next Steps
+- Go through remaining Big Data Week Repos
+- EDA using Spark? On EMR?
+- EDA on NPI dataset
+- Vectorize descriptions and EDA on them
+- Figure out best way to combine dataset (look at what graphlab takes as input)
+- How to deal with nested dictionaries (?)
+- Figure out best way to store dataset (csv? database?)
+- Use Spark to create combined dataset (?) RDD vs DataFrame(SparkSQL)
+
+
 - (continue graphlab tutorial / test)
 - https://github.com/turi-code/tutorials/blob/master/notebooks/basic_recommender_functionalities.ipynb
 - https://github.com/turi-code/tutorials/blob/master/notebooks/recsys_rank_10K_song.ipynb
-- Get files on S3
 - Run GraphLab on subsample of data (install graphlab on instance, install spark, view bigdata repos, the ones where we actually do stuff on EC2)
 - Run GraphLab on the 2014 referral data
+- Combine dataset sample
+- EDA on combined dataset
 - Recommender System PDF (Netflix)
 - Step by step add side data and engineer additional features
+- Checkout geopy to get geographic coordinates
+- Most common neighbors to compare ranking results
 
 
 # Datasets
