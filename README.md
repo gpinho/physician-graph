@@ -236,26 +236,23 @@ Distance Class
     * **Number of Rows**: 5,546,686
     * **Rows**: NPI Record
     * **Number of Columns**: 329
-    * **Columns**: https://npiregistry.cms.hhs.gov/registry/Json-Conversion-Field-Map
-        * NPI
-        * Entity Type Code
-        * NPI Deactivation Reason Code
-        * Provider Organization
-        * Provider Name
-        * Provider Credential
-        * Provider Location
-        * Provider Gender
-        * Provider Taxonomy Code (1-15)
-        * Provider License Number (1-15)
-        * Provider License Number State Code (1-15)
-        * Provider Taxonomy Code Switch (1-15)                        
-        * Other Provider (?)
-        * ...
-        * Other Provider Identifier (4x50) (?)
-        * Is Sole Proprietor
-        * Is Organization Subpart
-        * Parent Organization
-        * Healthcare Provide Taxonomy Group (?) (1-15) (Multi or Single Specialty Group)
+    * **Columns**: https://npiregistry.cms.hhs.gov/registry/Json-Conversion-Field-Map more details at https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand/Downloads/Data_Dissemination_File-Code_Values.pdf
+      * Next MVP Variables
+        * NPI > Key for Referral Dataset
+        * Provider Organization Name (Legal Business Name) > Dummy Variables
+        * Provider Business Practice Location Address City Name > Dummy Variables
+        * Provider Business Practice Location Address State Name > Dummy Variables
+        * Provider Business Practice Location Address Country Code (If outside US) > Dummy Variables
+        * Provider Gender Code > Dummy Variables
+        * Healthcare Provider Taxonomy Code_1 > Key for Taxonomy Dataset > Use Most Recent Taxonomy Code?
+        * Is Sole Proprietor > Dummy Variables
+      * Follow-up MVP Variables
+        * Entity Type Code > Labels > Dummy Variables
+        * Provider Other Organization Name > Include in Provider Organization Name (Legal Business Name) > Dummy Variables
+        * Provider Business Practice Location Address Postal Code > Get Geographic Coordinates (Geopy) > Calculate Distance Between Providers > How to Include in Model Training?
+        * Other Provider Variables > Research
+        * Is Organization Subpart > Labels > Include in Is Sole Proprietor > Dummy Variables
+        * Healthcare Provider Taxonomy Group_1 > Labels > Dummy Variables
 
 Obs: NPI records in the downloadable file will also include deactivated health care provider data. But for these deactivated providers, only the NPI and its deactivation date will be visible in the downloadable file
 

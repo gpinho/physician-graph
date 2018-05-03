@@ -24,14 +24,14 @@ def format_header(header_file, remove_char='.'):
     '''
     Takes a string with the header file
     Removes '.' to prevent errors with GraphLab
-    Returns a string with column names separated by ', '
+    Returns a string with column names separated by ','
     '''
     df = pd.read_csv(header_file)
     header = list(df.columns.values)
     for idx, col in enumerate(header):
         if remove_char in col:
             header[idx] = col.replace(remove_char, "")
-    return ', '.join(header)
+    return ','.join(header)
 
 
 def save_header_to_file(header, data_file, has_header=True):
@@ -94,6 +94,8 @@ def tokenizer():
     pass
 
 
+
+
 if __name__ == '__main__':
 
     # list of dataset urls
@@ -111,7 +113,7 @@ if __name__ == '__main__':
     # npi_dataset_header = format_header('npidata_pfile_20050523-20180408_FileHeader.csv')
     # save_header_to_file(npi_dataset_header, 'npidata_pfile_20050523-20180408.csv', has_header=True)
     # referral_dataset_txts = ['physician-shared-patient-patterns-2009-days180.txt', 'physician-shared-patient-patterns-2010-days180.txt', 'physician-shared-patient-patterns-2011-days180.txt', 'physician-shared-patient-patterns-2012-days180.txt', 'physician-shared-patient-patterns-2013-days180.txt', 'physician-shared-patient-patterns-2014-days180.txt', 'physician-shared-patient-patterns-2015-days180.txt']
-    # referral_dataset_header = ', '.join(['Initial Physician NPI', 'Secondary Physician NPI', 'Shared Count', 'Number Unique Beneficiaries', 'Number Same Day Visits'])
+    # referral_dataset_header = ','.join(['Initial Physician NPI', 'Secondary Physician NPI', 'Shared Count', 'Number Unique Beneficiaries', 'Number Same Day Visits'])
     # save_header_to_file_list(referral_dataset_header, referral_dataset_txts, has_header=False)
 
     # save files with adjusted headers to s3
@@ -121,14 +123,28 @@ if __name__ == '__main__':
     # save_files_to_s3(taxonomy_dataset_csvs + npi_dataset_csvs + referral_dataset_csvs, 'physician-referral-graph')
 
     # feature engineer taxonomy dataset
-    taxonomy_df = pd.read_csv('https://s3-us-west-1.amazonaws.com/physician-referral-graph/nucc_taxonomy_180.csv')
-    taxonomy_categorical_cols = ['Grouping', 'Classification', 'Specialization']
-    taxonomy_df_dummies = convert_categorical_to_dummy(taxonomy_df, taxonomy_categorical_cols)
-    taxonomy_df_dummies.to_csv('nucc_taxonomy_180_dummies.csv')
-    save_files_to_s3(['nucc_taxonomy_180_dummies.csv'], 'physician-referral-graph')
-
-
+    # taxonomy_df = pd.read_csv('https://s3-us-west-1.amazonaws.com/physician-referral-graph/nucc_taxonomy_180.csv', index_col=['Code'])
+    # taxonomy_categorical_cols = ['Grouping', 'Classification', 'Specialization']
+    # taxonomy_df_dummies = convert_categorical_to_dummy(taxonomy_df, taxonomy_categorical_cols)
+    # taxonomy_df_dummies.to_csv('nucc_taxonomy_180_dummies.csv')
+    # save_files_to_s3(['nucc_taxonomy_180_dummies.csv'], 'physician-referral-graph')
 
     # feature engineer npi dataset
+    npi_df = pd.read_csv("https://s3-us-west-1.amazonaws.com/physician-referral-graph/npidata_pfile_20050523-20180408_withHeader.csv")
+    npi_categorical_cols = []
+    npi_df_dummies = convert_categorical_to_dummy(npi_df, npi_categorical_cols)
+    npi_df_dummies.to_csv('npidata_pfile_20050523-20180408_withHeader_dummies.csv')
+    save_files_to_s3(['npidata_pfile_20050523-20180408_withHeader_dummies.csv'], 'physician-referral-graph')
+
+    CLEAN GITHUB
+    PUSH MOST RECENT VERSION
+    SPIN EC2 INSTANCE
+    (INSTALL WHATEVER I NEED)
+    CLONE REPO FROM GIT, ADD, COMMIT, PUSH according to changes
+
+
+    # feature engineer referral dataset
+    # combine different years into one file
+    # get adjusted average (2015)
 
     # split test train referral datasets
