@@ -136,8 +136,8 @@ if __name__ == '__main__':
     npi_df_dummies.to_csv('npidata_pfile_20050523-20180408_withHeader_dummies.csv')
     save_files_to_s3(['npidata_pfile_20050523-20180408_withHeader_dummies.csv'], 'physician-referral-graph')
 
-    CLEAN GITHUB
-    PUSH MOST RECENT VERSION
+
+    
     SPIN EC2 INSTANCE
     (INSTALL WHATEVER I NEED)
     CLONE REPO FROM GIT, ADD, COMMIT, PUSH according to changes
