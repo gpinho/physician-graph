@@ -103,7 +103,70 @@ https://turi.com/learn/userguide/recommender/choosing-a-model.html
 - Recommender Case Study
 
 # Next Steps
-- Go through remaining Big Data Week Repos
+- Pipeline
+  - Put all raw files on data folder
+
+
+
+- Edges Class
+  - Takes Referral Files (Year, RelationshipType, Average)
+  - Return NPIs with Relationships
+
+  - Takes All Possible NPIs  
+  - Returns NPIs Without Relationships
+
+  - Return All Possible Relationships with and without Edges
+
+- Headers Class (?)
+  - Returns CSV File with Headers
+
+
+
+- Repos for Spark Cluster
+- https://github.com/gSchool/dsi-spark-aws/blob/master/pair_part2.md
+- https://github.com/gSchool/dsi-solns-g65/tree/master/spark-aws
+
+
+
+
+- Nodes Class
+  - Takes NPI File
+  - Get more data from Taxonomy Class
+  - Gets Coordinates from Geopy
+  - Returns All Possible NPIs
+
+- Edges Class
+  - Takes All Possible NPIs
+  - Takes Referral Files
+  - Returns NPIs with and without Relationships
+  - Return All Possible Relationships with and without Edges
+
+- Taxonomies Class
+  - Takes Taxonomy File
+  - Return Description Words Vectorized
+
+Distance Class
+
+
+
+
+-
+- Extract Taxonomy Code from
+- Vectorize Taxonomy Table CSV (Only for Taxonomy Codes)
+- Complete Node Table CSV
+
+
+
+- Goal00: next mvp run model on a full year with side data physician categorical variables
+- Goal0: map necessary files and work backwards
+- Goal1: Edge Table: Get all possible edges and values for each year (which database?)
+- Goal2: Node Table: Get all possible nodes to a database
+- Goal3: Node Table: Get all possible nodes to a database
+- Goal4: Pipeline: Feature engineering NLP Description
+- Goal5: Pipeline: Feature engineering Distance
+
+
+
 - EDA using Spark? On EMR?
 - EDA on NPI dataset
 - Vectorize descriptions and EDA on them
