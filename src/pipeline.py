@@ -95,6 +95,14 @@ def tokenizer():
     '''
     pass
 
+def combine_referral_datasets(left_filepath, left_suffix, list_right_filepath_suffix, index_col=['Initial Physician NPI', 'Secondary Physician NPI']):
+    left_df = pd.read_csv(left_filepath, index_col=index_col)
+    for right_file in list_right_filepath_suffix:
+        right_filepath, right_suffix = right_file
+        right_df = pd.read_csv(right_filepath, index_col=index_col)
+        left_df = left_df.merge(right_df, how='outer', left_index= True, right_index=True, sort=True, copy=False, suffixes=(left_suffix, right_suffix))
+    return left_df
+
 
 
 
@@ -125,22 +133,35 @@ if __name__ == '__main__':
 #     save_files_to_s3(taxonomy_dataset_csvs + npi_dataset_csvs + referral_dataset_csvs, 'physician-referral-graph')
 
     # feature engineer taxonomy dataset
-#     taxonomy_df = pd.read_csv('https://s3-us-west-1.amazonaws.com/physician-referral-graph/nucc_taxonomy_180.csv', index_col=['Code'])
-#     taxonomy_categorical_cols = ['Grouping', 'Classification', 'Specialization']
-#     taxonomy_df_dummies = convert_categorical_to_dummy(taxonomy_df, taxonomy_categorical_cols)
-#     taxonomy_df_dummies.to_csv('nucc_taxonomy_180_dummies.csv')
-#     save_files_to_s3(['nucc_taxonomy_180_dummies.csv'], 'physician-referral-graph')
+    # taxonomy_df = pd.read_csv('https://s3-us-west-1.amazonaws.com/physician-referral-graph/nucc_taxonomy_180.csv', index_col=['Code'])
+    # taxonomy_categorical_cols = ['Grouping', 'Classification', 'Specialization']
+    # taxonomy_df_dummies = convert_categorical_to_dummy(taxonomy_df, taxonomy_categorical_cols)
+    # taxonomy_df_dummies.to_csv('nucc_taxonomy_180_dummies.csv')
+    # save_files_to_s3(['nucc_taxonomy_180_dummies.csv'], 'physician-referral-graph')
 
     # feature engineer npi dataset
-    npi_usecols = ['NPI', 'Provider Gender Code','Healthcare Provider Taxonomy Code_1']
-    npi_df = pd.read_csv("https://s3-us-west-1.amazonaws.com/physician-referral-graph/npidata_pfile_20050523-20180408_withHeader.csv", index_col=['NPI'], usecols=npi_usecols)
-    npi_categorical_cols = ['Provider Gender Code']
-    npi_df_dummies = convert_categorical_to_dummy(npi_df, npi_categorical_cols)
-    npi_df_dummies.to_csv('npidata_pfile_20050523-20180408_withHeader_dummies.csv')
-    save_files_to_s3(['npidata_pfile_20050523-20180408_withHeader_dummies.csv'], 'physician-referral-graph')
+    # npi_usecols = ['NPI', 'Provider Gender Code','Healthcare Provider Taxonomy Code_1']
+    # npi_df = pd.read_csv("https://s3-us-west-1.amazonaws.com/physician-referral-graph/npidata_pfile_20050523-20180408_withHeader.csv", index_col=['NPI'], usecols=npi_usecols)
+    # npi_categorical_cols = ['Provider Gender Code']
+    # npi_df_dummies = convert_categorical_to_dummy(npi_df, npi_categorical_cols)
+    # npi_df_dummies.to_csv('npidata_pfile_20050523-20180408_withHeader_dummies.csv')
+    # save_files_to_s3(['npidata_pfile_20050523-20180408_withHeader_dummies.csv'], 'physician-referral-graph')
 
     # feature engineer referral dataset
-    # combine different years into one file
+    initial_referral_dataset = 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2009-days180_withHeader.csv'
+    initial_referral_year = '2009: '
+    other_referral_datasets_years = [('2010: ','https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2010-days180_withHeader.csv'), ('2011: ', 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2011-days180_withHeader.csv'), ('2012: ', 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2012-days180_withHeader.csv'), ('2013: ', 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2013-days180_withHeader.csv'), ('2014: ', 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2014-days180_withHeader.csv'), ('2015: ', 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2015-days180_withHeader.csv')]
+    referral_df = combine_referral_datasets(initial_referral_dataset, initial_referral_yearm other_referral_datasets_years)
+    referral_df.to_csv('physician-shared-patient-patterns-2009-2015-days180_withHeader.csv')
+    save_files_to_s3(['physician-shared-patient-patterns-2009-2015-days180_withHeader.csv'], 'physician-referral-graph')
+
+
+
+    combine different years into one file
+
+
+
+
     # get adjusted average (2015)
 
     # split test train referral datasets
