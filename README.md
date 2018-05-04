@@ -244,8 +244,6 @@ Distance Class
       * Follow-up MVP Variables
         * Provider Organization Name (Legal Business Name) > Dummy Variables
         * Provider Business Practice Location Address First Line, City, State, Country > Coordinates (Geopy) > ?
-        * Provider Business Practice Location Address State Name > Dummy Variables
-        * Provider Business Practice Location Address Country Code (If outside US) > Dummy Variables
         * Is Sole Proprietor > Dummy Variables
         * Entity Type Code > Labels > Dummy Variables
         * Provider Other Organization Name > Include in Provider Organization Name (Legal Business Name) > Dummy Variables
