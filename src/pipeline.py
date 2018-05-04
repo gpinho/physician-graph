@@ -99,12 +99,12 @@ def tokenizer():
 if __name__ == '__main__':
 
     # list of dataset urls
-    # referral_dataset_urls = ['http://downloads.cms.gov/foia/physician-shared-patient-patterns-2009-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2010-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2011-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2012-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2013-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2014-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2015-days180.zip']
-    # npi_dataset_urls = ['http://download.cms.gov/nppes/NPPES_Data_Dissemination_April_2018.zip']
-    # taxonomy_dataset_urls = ['http://www.nucc.org/images/stories/CSV/nucc_taxonomy_180.csv']
+    referral_dataset_urls = ['http://downloads.cms.gov/foia/physician-shared-patient-patterns-2009-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2010-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2011-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2012-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2013-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2014-days180.zip', 'http://downloads.cms.gov/foia/physician-shared-patient-patterns-2015-days180.zip']
+    npi_dataset_urls = ['http://download.cms.gov/nppes/NPPES_Data_Dissemination_April_2018.zip']
+    taxonomy_dataset_urls = ['http://www.nucc.org/images/stories/CSV/nucc_taxonomy_180.csv']
 
     # download datasets to local directory
-    # download_files(taxonomy_dataset_urls + referral_dataset_urls + npi_dataset_urls)
+    download_files(taxonomy_dataset_urls + referral_dataset_urls + npi_dataset_urls)
 
     # unzip all zip files to local directory
     # unzip_files()
@@ -130,18 +130,11 @@ if __name__ == '__main__':
     # save_files_to_s3(['nucc_taxonomy_180_dummies.csv'], 'physician-referral-graph')
 
     # feature engineer npi dataset
-    npi_df = pd.read_csv("https://s3-us-west-1.amazonaws.com/physician-referral-graph/npidata_pfile_20050523-20180408_withHeader.csv")
-    npi_categorical_cols = []
-    npi_df_dummies = convert_categorical_to_dummy(npi_df, npi_categorical_cols)
-    npi_df_dummies.to_csv('npidata_pfile_20050523-20180408_withHeader_dummies.csv')
-    save_files_to_s3(['npidata_pfile_20050523-20180408_withHeader_dummies.csv'], 'physician-referral-graph')
-
-
-    
-    SPIN EC2 INSTANCE
-    (INSTALL WHATEVER I NEED)
-    CLONE REPO FROM GIT, ADD, COMMIT, PUSH according to changes
-
+    # npi_df = pd.read_csv("https://s3-us-west-1.amazonaws.com/physician-referral-graph/npidata_pfile_20050523-20180408_withHeader.csv")
+    # npi_categorical_cols = []
+    # npi_df_dummies = convert_categorical_to_dummy(npi_df, npi_categorical_cols)
+    # npi_df_dummies.to_csv('npidata_pfile_20050523-20180408_withHeader_dummies.csv')
+    # save_files_to_s3(['npidata_pfile_20050523-20180408_withHeader_dummies.csv'], 'physician-referral-graph')
 
     # feature engineer referral dataset
     # combine different years into one file
