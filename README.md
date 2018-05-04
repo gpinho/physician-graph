@@ -239,14 +239,14 @@ Distance Class
     * **Columns**: https://npiregistry.cms.hhs.gov/registry/Json-Conversion-Field-Map more details at https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand/Downloads/Data_Dissemination_File-Code_Values.pdf
       * Next MVP Variables
         * NPI > Key for Referral Dataset
-        * Provider Organization Name (Legal Business Name) > Dummy Variables
-        * Provider Business Practice Location Address City Name > Dummy Variables
-        * Provider Business Practice Location Address State Name > Dummy Variables
-        * Provider Business Practice Location Address Country Code (If outside US) > Dummy Variables
         * Provider Gender Code > Dummy Variables
         * Healthcare Provider Taxonomy Code_1 > Key for Taxonomy Dataset > Use Most Recent Taxonomy Code?
-        * Is Sole Proprietor > Dummy Variables
       * Follow-up MVP Variables
+        * Provider Organization Name (Legal Business Name) > Dummy Variables
+        * Provider Business Practice Location Address First Line, City, State, Country > Coordinates (Geopy) > ?
+        * Provider Business Practice Location Address State Name > Dummy Variables
+        * Provider Business Practice Location Address Country Code (If outside US) > Dummy Variables
+        * Is Sole Proprietor > Dummy Variables
         * Entity Type Code > Labels > Dummy Variables
         * Provider Other Organization Name > Include in Provider Organization Name (Legal Business Name) > Dummy Variables
         * Provider Business Practice Location Address Postal Code > Get Geographic Coordinates (Geopy) > Calculate Distance Between Providers > How to Include in Model Training?
