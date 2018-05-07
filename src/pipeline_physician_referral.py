@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
+from pipeline_store_datasets import save_files_to_s3
 
 def combine_referral_datasets(left_filepath, left_year, list_right_filepath_year, usecols=['Initial Physician NPI', 'Secondary Physician NPI', 'Number Unique Beneficiaries'], dtype={'Initial Physician NPI':str, 'Secondary Physician NPI':str, 'Number Unique Beneficiaries':np.int32}, index_col=['Initial Physician NPI', 'Secondary Physician NPI']):
     print('function starting')
@@ -17,6 +19,18 @@ def combine_referral_datasets(left_filepath, left_year, list_right_filepath_year
         print('dataframe saved to csv')
     return left_df
 
+def get_average(df):
+    cols = df.columns
+    df['Sum Number Unique Beneficiaries'] = 0
+    for col in cols:
+        df['Sum Number Unique Beneficiaries'] += df[col]
+    df['Average Number Unique Beneficiaries'] = df['Sum Number Unique Beneficiaries'] / len(cols)
+    return df
+
+def split_train_test(df):
+    y_regression_train, y_regression_test = train_test_split(df, test_size=0.1)
+    return y_regression_train, y_regression_test
+
 if __name__ == '__main__':
     
     # feature engineer referral dataset
@@ -26,3 +40,11 @@ if __name__ == '__main__':
     referral_df = combine_referral_datasets(initial_referral_dataset, initial_referral_year, other_referral_datasets_years)
     referral_df.to_csv('physician-shared-patient-patterns-2009-2015-days180_withHeader.csv')
     save_files_to_s3(['physician-shared-patient-patterns-2009-2015-days180_withHeader.csv'], 'physician-referral-graph')
+    average_df = get_average(referral_df)
+    average_df.to_csv('physician-shared-patient-patterns-average-unique-beneficiaries.csv')
+    save_files_to_s3(['physician-shared-patient-patterns-average-unique-beneficiaries.csv'], 'physician-referral-graph')
+    y_regression_train, y_regression_test = split_train_test(df)
+    y_regression_train.to_csv('y_regression_train.csv')
+    y_regression_test.to_csv('y_regression_test.csv')
+    save_files_to_s3(['y_regression_train.csv', 'y_regression_test.csv'], 'physician-referral-graph')
+    
