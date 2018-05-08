@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from pipeline_store_datasets import save_files_to_s3
+from pipeline_datasets import save_files_to_s3
 
 def combine_referral_datasets(left_filepath, left_year, list_right_filepath_year, usecols=['Initial Physician NPI', 'Secondary Physician NPI', 'Number Unique Beneficiaries'], dtype={'Initial Physician NPI':str, 'Secondary Physician NPI':str, 'Number Unique Beneficiaries':np.int32}, index_col=['Initial Physician NPI', 'Secondary Physician NPI']):
     print('function starting')
@@ -20,6 +20,7 @@ def combine_referral_datasets(left_filepath, left_year, list_right_filepath_year
     return left_df
 
 def get_average(df):
+#     df.fillna(0.0, inplace=True)
     cols = df.columns
     df['Sum Number Unique Beneficiaries'] = 0
     for col in cols:
@@ -37,19 +38,32 @@ def split_train_test(df):
 if __name__ == '__main__':
 
     # feature engineer referral dataset
-    initial_referral_dataset = 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2009-days180_withHeader.csv'
-    initial_referral_year = '2009'
-    other_referral_datasets_years = [('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2010-days180_withHeader.csv', '2010'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2011-days180_withHeader.csv', '2011'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2012-days180_withHeader.csv', '2012'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2013-days180_withHeader.csv', '2013'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2014-days180_withHeader.csv', '2014'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2015-days180_withHeader.csv', '2015')]
-    referral_df = combine_referral_datasets(initial_referral_dataset, initial_referral_year, other_referral_datasets_years)
-    referral_df.to_csv('physician-shared-patient-patterns-2009-2015-days180_withHeader.csv')
-    save_files_to_s3(['physician-shared-patient-patterns-2009-2015-days180_withHeader.csv'], 'physician-referral-graph')
+#     initial_referral_dataset = 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2009-days180_withHeader.csv'
+#     initial_referral_year = '2009'
+#     other_referral_datasets_years = [('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2010-days180_withHeader.csv', '2010'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2011-days180_withHeader.csv', '2011'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2012-days180_withHeader.csv', '2012'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2013-days180_withHeader.csv', '2013'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2014-days180_withHeader.csv', '2014'), ('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-2015-days180_withHeader.csv', '2015')]
+#     referral_df = combine_referral_datasets(initial_referral_dataset, initial_referral_year, other_referral_datasets_years)
+#     referral_df.to_csv('physician-shared-patient-patterns-2009-2015-days180_withHeader.csv')
+#     save_files_to_s3(['physician-shared-patient-patterns-2009-2015-days180_withHeader.csv'], 'physician-referral-graph')
+    
+    dtype = {'Initial Physician NPI':str, 'Secondary Physician NPI':str, 'Number Unique Beneficiaries_2009':float,'Number Unique Beneficiaries_2010':float,'Number Unique Beneficiaries_2011':float,'Number Unique Beneficiaries_2012':float,'Number Unique Beneficiaries_2013':float,'Number Unique Beneficiaries_2014':float,'Number Unique Beneficiaries_2015':float}
+    referral_df = pd.read_csv('https://s3-us-west-1.amazonaws.com/physician-referral-graph/physician-shared-patient-patterns-unique-beneficiaries-2009-2015.csv', dtype=dtype, index_col=['Initial Physician NPI', 'Secondary Physician NPI'])
+    print('read csv to df')
     average_df = get_average(referral_df)
+    print('get average df')
     average_df.to_csv('physician-shared-patient-patterns-average-unique-beneficiaries.csv')
+    print('average df to csv')
     save_files_to_s3(['physician-shared-patient-patterns-average-unique-beneficiaries.csv'], 'physician-referral-graph')
+    print('save average csv to s3')
     drop = ['Number Unique Beneficiaries_2009','Number Unique Beneficiaries_2010','Number Unique Beneficiaries_2011','Number Unique Beneficiaries_2012','Number Unique Beneficiaries_2013','Number Unique Beneficiaries_2014','Number Unique Beneficiaries_2015']
     y_regression_df = drop_cols(average_df, drop)
+    print('drop to full y')
     y_regression_df.to_csv('y_regression_full.csv')
+    print('full y to csv')
     y_regression_train, y_regression_test = split_train_test(y_regression_df)
+    print('split y to train and test')
     y_regression_train.to_csv('y_regression_train.csv')
+    print('train y to csv')
     y_regression_test.to_csv('y_regression_test.csv')
-    save_files_to_s3(['y_regression_train.csv', 'y_regression_test.csv'], 'physician-referral-graph')
+    print('test y to csv')
+    save_files_to_s3(['y_regression_full.csv, y_regression_train.csv', 'y_regression_test.csv'], 'physician-referral-graph')
+    print('y files to s3')
