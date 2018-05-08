@@ -65,5 +65,5 @@ if __name__ == '__main__':
     # print('train y to csv')
     # y_regression_test.to_csv('y_regression_test.csv')
     # print('test y to csv')
-    save_files_to_s3(['y_regression_full.csv', 'y_regression_train.csv', 'y_regression_test.csv'], 'physician-referral-graph')
-    print('y files to s3')
+    # save_files_to_s3(['y_regression_full.csv', 'y_regression_train.csv', 'y_regression_test.csv'], 'physician-referral-graph')
+    # print('y files to s3')
