@@ -4,6 +4,29 @@
 This project is being developed as a capstone project for Galvanize's Data Science Immersive course.
 https://www.galvanize.com/san-francisco/data-science
 
+# Next Steps
+- Pipeline Transformations
+  - Edges:
+    - Download Referral Set
+    - Get Headers
+    - Store on S3
+    - Combine Years
+    - Take Unique Beneficiaries Average
+    - Split Test Train
+    - Load Train to Graphlab
+  - Nodes:
+    - Download Physician Set
+    - Adjust Headers
+    - Store on S3
+    - Download Specialty Set
+    - Store on S3
+    - Read Specialty Columns of Interest
+    - Dummy Variables of Specialties
+    - TFIDF of Specialty Description (substitute 'definition to come...')
+    - Store on S3
+    - Read Physician Columns of Interest
+
+
 # Background
 Patients rely on a network of specialized physicians in order to get healthcare, but to address patients specific needs physicians refer one another but what drives these referrals? There are no features that highlight existing relationships and that recommend new relationships between physicians. We expect to build a web app able to predict physician relationships (shared patients).
 
@@ -101,92 +124,6 @@ https://turi.com/learn/userguide/recommender/choosing-a-model.html
 # Review Repos
 - Recommendation Systems
 - Recommender Case Study
-
-# Next Steps
-- Pipeline
-  - Put all raw files on data folder
-
-
-
-- Edges Class
-  - Takes Referral Files (Year, RelationshipType, Average)
-  - Return NPIs with Relationships
-
-  - Takes All Possible NPIs  
-  - Returns NPIs Without Relationships
-
-  - Return All Possible Relationships with and without Edges
-
-- Headers Class (?)
-  - Returns CSV File with Headers
-
-
-
-- Repos for Spark Cluster
-- https://github.com/gSchool/dsi-spark-aws/blob/master/pair_part2.md
-- https://github.com/gSchool/dsi-solns-g65/tree/master/spark-aws
-
-
-
-
-- Nodes Class
-  - Takes NPI File
-  - Get more data from Taxonomy Class
-  - Gets Coordinates from Geopy
-  - Returns All Possible NPIs
-
-- Edges Class
-  - Takes All Possible NPIs
-  - Takes Referral Files
-  - Returns NPIs with and without Relationships
-  - Return All Possible Relationships with and without Edges
-
-- Taxonomies Class
-  - Takes Taxonomy File
-  - Return Description Words Vectorized
-
-Distance Class
-
-
-
-
--
-- Extract Taxonomy Code from
-- Vectorize Taxonomy Table CSV (Only for Taxonomy Codes)
-- Complete Node Table CSV
-
-
-
-- Goal00: next mvp run model on a full year with side data physician categorical variables
-- Goal0: map necessary files and work backwards
-- Goal1: Edge Table: Get all possible edges and values for each year (which database?)
-- Goal2: Node Table: Get all possible nodes to a database
-- Goal3: Node Table: Get all possible nodes to a database
-- Goal4: Pipeline: Feature engineering NLP Description
-- Goal5: Pipeline: Feature engineering Distance
-
-
-
-- EDA using Spark? On EMR?
-- EDA on NPI dataset
-- Vectorize descriptions and EDA on them
-- Figure out best way to combine dataset (look at what graphlab takes as input)
-- How to deal with nested dictionaries (?)
-- Figure out best way to store dataset (csv? database?)
-- Use Spark to create combined dataset (?) RDD vs DataFrame(SparkSQL)
-
-
-- (continue graphlab tutorial / test)
-- https://github.com/turi-code/tutorials/blob/master/notebooks/basic_recommender_functionalities.ipynb
-- https://github.com/turi-code/tutorials/blob/master/notebooks/recsys_rank_10K_song.ipynb
-- Run GraphLab on subsample of data (install graphlab on instance, install spark, view bigdata repos, the ones where we actually do stuff on EC2)
-- Run GraphLab on the 2014 referral data
-- Combine dataset sample
-- EDA on combined dataset
-- Recommender System PDF (Netflix)
-- Step by step add side data and engineer additional features
-- Checkout geopy to get geographic coordinates
-- Most common neighbors to compare ranking results
 
 
 # Datasets
