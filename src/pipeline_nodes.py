@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 from nltk import word_tokenize, corpus
 from nltk.stem import WordNetLemmatizer
-from geopy.geocoders import Nominatim
+# from geopy.geocoders import Nominatim
 
 def convert_categorical_to_dummy(data_frame, categorical_cols):
     '''
@@ -27,21 +27,6 @@ def tokenize(doc):
     '''
     return [wordnet.lemmatize(word) for word in word_tokenize(re.sub('[^a-z\s]', '', doc.lower()))]
 
-# def combine_physician_specialty(physician_df, left_year, list_right_filepath_year, usecols=['Initial Physician NPI', 'Secondary Physician NPI', 'Number Unique Beneficiaries'], dtype={'Initial Physician NPI':str, 'Secondary Physician NPI':str, 'Number Unique Beneficiaries':np.int32}, index_col=['Initial Physician NPI', 'Secondary Physician NPI']):
-#     print('function starting')
-#     left_df = pd.read_csv(left_filepath, usecols=usecols, dtype=dtype, index_col=index_col)
-#     left_df.columns += '_' + left_year
-#     print(f'year {left_year} loaded')
-#     for right_file in list_right_filepath_year:
-#         right_filepath, right_year = right_file
-#         right_df = pd.read_csv(right_filepath, usecols=usecols, dtype=dtype, index_col=index_col)
-#         print(f'year {right_year} loaded')
-#         right_df.columns += '_' + right_year
-#         left_df = left_df.merge(right_df, how='outer', left_index= True, right_index=True, copy=False)
-#         print(f'year {right_year} merged')
-#         left_df.to_csv('physician-shared-patient-patterns-' + left_year + '-' + right_year + '.csv')
-#         print('dataframe saved to csv')
-#     return left_df
 
 # def get_top_values(lst, n, labels):
 #     '''
@@ -118,10 +103,17 @@ if __name__ == '__main__':
     # physician_file = 'data/samples/npidata_pfile_20050523-20180408_withHeader-subsample.csv'
     physician_df = pd.read_csv(physician_file, dtype=physician_dtype, usecols=physician_cols)
     physician_df['Entity Type Code'].replace(2, 0, inplace=True)
-    physician_categorical_cols = ['Provider Business Practice Location Address City Name', 'Provider Business Practice Location Address State Name', 'Provider Business Practice Location Address Country Code (If outside US)', 'Provider Gender Code']
-    physician_df_dummies = convert_categorical_to_dummy(physician_df, physician_categorical_cols)
-    physician_df_dummies.to_csv('npidata_pfile_20050523-20180408_withHeader_dummies.csv')
-    save_files_to_s3(['npidata_pfile_20050523-20180408_withHeader_dummies.csv'], 'physician-referral-graph')
+    
+    specialty_file = 'https://s3-us-west-1.amazonaws.com/physician-referral-graph/nucc_taxonomy_180_nlp.csv'
+    specialty_df = pd.read_csv(specialty_file) 
+    nodes_df = physician_df.merge(specialty_df, how='left', left_on='Healthcare Provider Taxonomy Code_1', right_on='Code', copy=False)
+    nodes_df.to_csv('nodes.csv')
+    save_files_to_s3(['nodes.csv'], 'physician-referral-graph')
+    
+#     physician_categorical_cols = ['Provider Business Practice Location Address City Name', 'Provider Business Practice Location Address State Name', 'Provider Business Practice Location Address Country Code (If outside US)', 'Provider Gender Code']
+#     physician_df_dummies = convert_categorical_to_dummy(physician_df, physician_categorical_cols)
+#     physician_df_dummies.to_csv('npidata_pfile_20050523-20180408_withHeader_dummies.csv')
+#     save_files_to_s3(['npidata_pfile_20050523-20180408_withHeader_dummies.csv'], 'physician-referral-graph')
 
     # get_coordinates(npi_file, usecols)
     # # feature engineer npi dataset
